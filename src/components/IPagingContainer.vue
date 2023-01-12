@@ -78,13 +78,11 @@ export default {
   destroyed() {},
   methods:{
     showTotalFormat(total, range) {
-      return (
-        IDM.express &&
-        IDM.express.replace.call(this, this.propData.showTotalFormat, {
-          total,
-          range,
-        })
-      );
+      if ( this.propData.showTotalFormat && IDM.express ) {
+        return IDM.express.replace.call(this, this.propData.showTotalFormat, { total, range, })
+      } else {
+        return false
+      }
     },
     /**
      * 提供父级组件调用的刷新prop数据组件
@@ -515,8 +513,8 @@ export default {
       this.conditionObjectRetain&&Object.keys(this.conditionObjectRetain).forEach(key=>{
         params[key] = typeof this.conditionObjectRetain[key]=='object'?JSON.stringify(this.conditionObjectRetain[key]):this.conditionObjectRetain[key];
       })
-      params["pageIndex"] = this.current;
-      params["pageSize"] = this.pageSize;
+      params[ this.propData.pageIndex || "pageIndex"] = this.current;
+      params[ this.propData.pageSize || "pageSize"] = this.pageSize;
       switch (this.propData.dataSourceType) {
         case "customInterface":
           this.propData.customInterfaceUrl&&window.IDM.http.get(this.propData.customInterfaceUrl,params)
@@ -587,8 +585,7 @@ export default {
           triggerType:'MT'
         })
       }
-      
-      var totalCount = this.listResultData?this.listResultData.data&&this.listResultData.data.total:-1;
+      var totalCount = this.listResultData?(this.listResultData.data ? this.listResultData.data.total : -1):-1;
       if(totalCount==-1){
         totalCount = this.listResultData&&this.listResultData.total;
       }
