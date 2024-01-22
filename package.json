@@ -1,11 +1,12 @@
 {
-  "name": "console",
-  "version": "1.0.1",
+  "name": "idmConsole",
+  "version": "2.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && npm run zip",
     "lint": "vue-cli-service lint",
+    "zip": "idm zip -m",
     "gen": "idm-generate vue"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@idm-modules/cli": "latest",
     "@idm-modules/cli-generate": "^1.0.33",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
@@ -41,10 +43,10 @@
     },
     "rules": {
       "no-unused-vars": 0,
-      "no-empty":0,
-      "no-undef":0,
-      "no-redeclare":0,
-      "no-case-declarations":0
+      "no-empty": 0,
+      "no-undef": 0,
+      "no-redeclare": 0,
+      "no-case-declarations": 0
     },
     "globals": {
       "IDM": true,
